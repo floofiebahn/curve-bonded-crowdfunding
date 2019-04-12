@@ -12,7 +12,7 @@ contract ERC20BondingToken is BondingCurveToken {
     /* Reserve Token */
     ERC20 public reserveToken;
 
-    constructor(ERC20 _reserveToken, uint256 _gasPrice)
+    constructor(ERC20 _reserveToken)
         public
     {
         reserveToken = _reserveToken;

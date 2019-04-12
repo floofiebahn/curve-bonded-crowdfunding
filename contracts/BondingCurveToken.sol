@@ -77,7 +77,6 @@ contract BondingCurveToken is ERC20, BancorFormula {
         address user,
         uint256 deposit
     )
-        validGasPrice
         validMint(deposit)
         internal
         returns (uint256)
@@ -99,7 +98,6 @@ contract BondingCurveToken is ERC20, BancorFormula {
         address user,
         uint256 amount
     )
-        validGasPrice
         validBurn(amount)
         internal
         returns (uint256)
@@ -110,23 +108,10 @@ contract BondingCurveToken is ERC20, BancorFormula {
     return reimbursement;
     }
 
-    function _setGasPrice(uint256 _gasPrice)
-        internal
-    {
-        require(_gasPrice > 0);
-        gasPrice = _gasPrice;
-    }
-
     /**
     * @dev Abstract method that returns pool balance
     */
     function poolBalance() public view returns (uint256);
-
-    // verifies that the gas price is lower than the universal limit
-    modifier validGasPrice() {
-        assert(tx.gasprice <= gasPrice);
-        _;
-    }
 
     modifier validBurn(uint256 amount) {
         require(amount > 0 && balanceOf(msg.sender) >= amount);
